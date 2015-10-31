@@ -28,8 +28,6 @@ void checkSerial()
     }  
     else if (rawInput == beginMsg) { // get ready for new input data
       inputIndex=0;
-      pollEnable=1;
-      pollEnableTimer=millis();
     } 
     else if (rawInput == escByte) { // next byte is good data
       esc_flag = 1;
@@ -73,7 +71,9 @@ void processSerialInput(byte msgLength)
       break;
       
       case 11:
-      //a received data stream
+      //a received data stream and enable sending streaming data
+      pollEnable=1;
+      pollEnableTimer=millis();
       break;
       
       case 12:
@@ -110,10 +110,10 @@ void processSerialInput(byte msgLength)
         i+=4;
         break;
         
-//        case 253:
-//        for(int j=0;j<10;j++) bufferByte(j);
-//        outputSerialData();
-//        break;
+        case 253:
+        for(int j=0;j<10;j++) bufferByte(j);
+        outputSerialData();
+        break;
         
         case 254: //test case, mirrors input back to sender
           bufferByte(254);

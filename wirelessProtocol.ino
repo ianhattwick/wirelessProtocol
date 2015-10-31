@@ -80,7 +80,7 @@ LOOP
 ******************************/
 
 long pollTimer=0;
-int pollInterval=25; //rate of data sent
+int pollInterval=250; //rate of data sent
 byte sampleStream=0;
 
 void loop(){

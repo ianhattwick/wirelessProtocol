@@ -14,7 +14,7 @@ void prepStreamingData()
     //write functions here to buffer data
   bufferSensors(); //example
   ackFlag=0; //no acknowledgement needed
-   outputSerialData(); //this function trasmits buffered data to wireless device after all data has been buffered
+  outputSerialData(); //this function trasmits buffered data to wireless device after all data has been buffered
   /*
   Polling means the device will send data continuously at the <pollInterval> ms rate. 
   If a message from the host device is not received after a delay of <pollEnableInterval> ms then polling is disabled.
@@ -44,7 +44,6 @@ void bufferSensors()
 
 
 void sendErrorMessage(byte error){
-  //unimplemented
   ackFlag=0;
   bufferByte(errorMsg);
   bufferByte(error);
