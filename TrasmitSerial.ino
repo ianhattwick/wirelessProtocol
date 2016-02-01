@@ -35,7 +35,7 @@ void bufferSensors()
   bufferByte(sensors); //buffer message type first
   //buffer bytes
   for (int i=0;i<2;i++) {  
-   bufferByte(sampleStream);
+    bufferByte(i);
   }
   
   //buffer an int
@@ -70,9 +70,9 @@ void bufferByte(byte input)
 
 void bufferInt(int output)
 {
-  serialOutputBuffer[bufferIndex]=((byte)(output >> 8));
+  serialOutputBuffer[bufferIndex]=((byte)(output >> 8)); //top byte
   bufferIndex=bufferIndex+1;
-  serialOutputBuffer[bufferIndex]=((byte)(output & 0xFF));
+  serialOutputBuffer[bufferIndex]=((byte)(output & 0xFF)); //bottom byte
   bufferIndex=bufferIndex+1;
 }
 
@@ -89,6 +89,8 @@ void outputSerialData()
   Serial.write(beginMsg); //SLIP start message
   
   slipOut(deviceID); //device ID
+  
+  //setup byte 2 to include both ackFlag and a pktnumber between 0-127
   byte byte2 = (ackFlag<<7) | pktNumber; //2nd byte - acknowledge flag and number
   pktNumber=(pktNumber+1)%128;
   slipOut(byte2);
